@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <group android:id="@+id/group_inputs">
+        <item
+            android:id="@+id/nav_newround"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="New Score" />
+
+        <item
+            android:id="@+id/nav_arrowcount"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="Arrow Counter" />
+
+    </group>
+    <group android:id="@+id/group_outputs">
+            <item
+            android:id="@+id/nav_scorehistory"
+            android:icon="?android:attr/actionModePasteDrawable"
+            android:title="Score History" />
+
+        <item
+            android:id="@+id/nav_scoreexport"
+            android:icon="@android:drawable/ic_menu_save"
+            android:title="Score Export" />
+
+    </group>
+
+
+
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
