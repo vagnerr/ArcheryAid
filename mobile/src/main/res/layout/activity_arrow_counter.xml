@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vagnerr.android.archeryaid.ArrowCounterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/text_arrowcount_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Arrows: 0999"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
+        <TextView
+            android:id="@+id/textVolley"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volley"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ToggleButton
+                android:id="@+id/toggleVolley1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1"
+                android:textOff="1"
+                android:textOn="1"
+                android:layout_weight="1" />
+
+            <ToggleButton
+                android:id="@+id/toggleVolley3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="3"
+                android:textOff="3"
+                android:textOn="3"
+                android:layout_weight="1" />
+
+            <ToggleButton
+                android:id="@+id/toggleVolley6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="6"
+                android:textOff="6"
+                android:textOn="6"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_countUndo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:paddingHorizontal="@android:dimen/app_icon_size"
+            android:text="Undo" />
+
+        <Button
+            android:id="@+id/button_countClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Click"
+            android:layout_weight="0.9" />
+
+    </LinearLayout>
+
+
+</FrameLayout>
