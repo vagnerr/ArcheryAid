@@ -92,16 +92,31 @@ public class ArcheryProvider extends ContentProvider {
     private Cursor getArrowCountHistory(Uri uri, String[] projection, String sortOrder) {
         int days = ArcheryContract.ArrowCount.getDaysFromUri(uri);
 
-        long date = Utility.getJulianStartTime(-days);
-        return sArrowCountQueryBuilder.query(mOpenHelper.getReadableDatabase(),
-                new String[]{"SUM("+ ArcheryContract.ArrowCount.COLUMN_COUNT +")"},
-                sArrowHistoryDateSelection, //selection,
-                new String[]{Long.toString(date)}, //selectionArgs,
-                null, //groupby,
-                null,//having,
-                sortOrder,
-                null //limit
-                );
+        if ( days > 0 ) {
+            long date = Utility.getJulianStartTime(-days);
+            return sArrowCountQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                    new String[]{"SUM(" + ArcheryContract.ArrowCount.COLUMN_COUNT + ")"},
+                    sArrowHistoryDateSelection, //selection,
+                    new String[]{Long.toString(date)}, //selectionArgs,
+                    null, //groupby,
+                    null,//having,
+                    sortOrder,
+                    null //limit
+            );
+        }
+        else {
+            // "0" means all time numbers
+            return sArrowCountQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                    new String[]{"SUM(" + ArcheryContract.ArrowCount.COLUMN_COUNT + ")"},
+                    null,   //selection,
+                    null,   //selectionArgs,
+                    null,   //groupby,
+                    null,   //having,
+                    sortOrder,
+                    null //limit
+            );
+
+        }
     }
 
     @Nullable
