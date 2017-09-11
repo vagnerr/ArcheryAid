@@ -7,5 +7,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="format_arrow_click_count">Arrows: <xliff:g id="arrow_count">%1$04d</xliff:g></string>
+    <string name="format_arrow_click_count"><xliff:g id="arrow_count">%1$04d</xliff:g></string>
+
+    <string name="content_authority">com.vagnerr.android.archeryaid</string>
 </resources>

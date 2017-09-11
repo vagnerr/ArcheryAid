@@ -1,9 +1,12 @@
 package com.vagnerr.android.archeryaid;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,12 +16,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.vagnerr.android.archeryaid.data.ArcheryContract;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private AdView mAdView;
 
@@ -50,6 +57,36 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // update the totals...
+
+        ContentResolver cp = this.getContentResolver();
+
+        updateArrowCount( cp, R.id.arrowcount_week, 7 );
+        updateArrowCount( cp, R.id.arrowcount_month, 30 );
+        updateArrowCount( cp, R.id.arrowcount_year, 365 );
+        updateArrowCount( cp, R.id.arrowcount_alltime, 0 );
+
+
+    }
+
+    private void updateArrowCount(ContentResolver cp, int textView, int days) {
+        Cursor data = cp.query( ArcheryContract.ArrowCount.buildArrowCountHistoryUri(days),
+                new String[]{ArcheryContract.ArrowCount.COLUMN_COUNT},
+                null,
+                null,
+                null
+
+        );
+
+        if (data != null && data.moveToFirst()) {
+            int arrow_count = data.getInt(0); // TODO COLUMN INDEXES HERE
+            TextView countDisplay = findViewById(textView);
+            countDisplay.setText(Utility.getFormattedArrowCount(this, arrow_count));
+        }
+        else{
+            Log.v(LOG_TAG, "... No data found");
+        }
     }
 
     @Override

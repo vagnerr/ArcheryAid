@@ -11,14 +11,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
-
-        <TextView
-            android:id="@+id/text_arrowcount_total"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Arrows: 0999"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+            android:orientation="horizontal"
+            android:padding="16dp">
+            <TextView
+                android:id="@+id/text_arrowcount_total_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arrows:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+            <TextView
+                android:id="@+id/text_arrowcount_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0999"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textVolley"

@@ -123,25 +123,25 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/arrowcount_week"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="120" />
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/arrowcount_month"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="400" />
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/arrowcount_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1200" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/arrowcount_alltime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="9990" />
