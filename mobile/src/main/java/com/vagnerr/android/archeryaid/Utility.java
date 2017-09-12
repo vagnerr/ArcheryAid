@@ -12,7 +12,7 @@ import android.text.format.Time;
 public class Utility {
     public static int getPrefferedVolley(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return 1; //prefs.getInt()
+        return 6; //prefs.getInt()  // TODO: Actually do this
     }
 
     public static String getFormattedArrowCount(Context context, int arrow_count) {
