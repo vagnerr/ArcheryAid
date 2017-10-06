@@ -19,13 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ArrowCounterActivity"></activity>
+        <activity android:name=".ArrowCounterActivity" />
+
         <provider
-            android:authorities="@string/content_authority"
             android:name=".data.ArcheryProvider"
+            android:authorities="@string/content_authority"
             android:exported="false"
             android:syncable="true" />
 
+        <activity android:name=".RoundPickActivity"></activity>
     </application>
 
 </manifest>
