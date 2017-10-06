@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<constants>
+    <classification>
+        <record _id="1" name="Grand Master Bowman"/>
+        <record _id="2" name="Master Bowman"/>
+        <record _id="3" name="Bowman"/>
+        <record _id="4" name="Bowman 1st Class"/>
+        <record _id="5" name="Bowman 2nd Class"/>
+        <record _id="6" name="Bowman 3rd Class"/>
+    </classification>
+    <session_state>
+        <record _id="1" name="Practice" official="0"/>
+        <record _id="2" name="Club Shoot" official="1"/>
+        <record _id="3" name="Competition" official="1"/>
+    </session_state>
+    <arrow>
+        <record _id="0" name="Miss" value="0"/>  <!-- might want this one to be a +ve number -->
+        <record _id="1" name="1" value="1"/>
+        <record _id="2" name="2" value="2"/>
+        <record _id="3" name="3" value="3"/>
+        <record _id="4" name="4" value="4"/>
+        <record _id="5" name="5" value="5"/>
+        <record _id="6" name="6" value="6"/>
+        <record _id="7" name="7" value="7"/>
+        <record _id="8" name="8" value="8"/>
+        <record _id="9" name="9" value="9"/>
+        <record _id="10" name="10" value="10"/>
+        <record _id="11" name="X" value="10"/>
+    </arrow>
+    <rules>
+        <record _id="1" name="Custom"/>
+        <record _id="2" name="FITA Outdoor"/>
+        <record _id="3" name="FITA Indoor"/>
+        <record _id="4" name="GNAS Metric Outdoor"/>
+        <record _id="5" name="GNAS Imperial Outdoor"/>
+        <record _id="6" name="GNAS Indoor"/>
+
+    </rules>
+
+    <scoring_type>
+        <!-- Maybe define explicit target types ( 10 zone, 5 zone, Metric Inner 10 etc )
+            we dont put target distance though -->
+
+        <record _id="1" distance="30" units="m" target_size="80" zone_count="10"/>
+
+    </scoring_type>
+</constants>
