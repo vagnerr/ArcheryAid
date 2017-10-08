@@ -119,9 +119,12 @@ public class ArcheryContract {
 
         public static final String TABLE_NAME               = "round_makeup";
         public static final String COLUMN_ROUND_ID          = "round_id";               // FK: round_const
-        public static final String COLUMN_TARGET_TYPE_ID    = "target_type_id";         // FK: target_type_const
-        public static final String COLUMN_END_COUNT         = "end_count";
         public static final String COLUMN_DISTANCE_ORDER    = "distance_order";
+        public static final String COLUMN_TARGET_TYPE_ID    = "target_type_id";         // FK: target_type_const
+        public static final String COLUMN_DISTANCE          = "distance";
+        public static final String COLUMN_TARGET_SIZE       = "target_size";
+        public static final String COLUMN_END_COUNT         = "end_count";
+        public static final String COLUMN_ARROWS            = "arrows";
 
 
     }
@@ -136,12 +139,9 @@ public class ArcheryContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_TARGETTYPECONST;
 
         public static final String TABLE_NAME               = "target_type_const";
-        public static final String COLUMN_DISTANCE          = "distance";
-        public static final String COLUMN_UNITS             = "units";       // Or units_id as a FK?
-        public static final String COLUMN_TARGET_SIZE       = "target_size";
-        public static final String COLUMN_ZONE_COUNT        = "zone_count";
-
-
+        public static final String COLUMN_NAME              = "name";
+        public static final String COLUMN_CODE              = "code";
+        public static final String COLUMN_ZONES             = "zones";
     }
 
 
@@ -252,9 +252,12 @@ public class ArcheryContract {
 
         public static final String TABLE_NAME               = "session_makeup";
         public static final String COLUMN_SESSION_ID        = "session_id";     // FK: session
-        public static final String COLUMN_TARGET_TYPE_ID    = "target_type_id"; // FK: target_type_const
-        public static final String COLUMN_END_COUNT         = "end_count";
         public static final String COLUMN_DISTANCE_ORDER    = "distance_order";
+        public static final String COLUMN_TARGET_TYPE_ID    = "target_type_id"; // FK: target_type_const
+        public static final String COLUMN_DISTANCE          = "distance";
+        public static final String COLUMN_TARGET_SIZE       = "target_size";
+        public static final String COLUMN_END_COUNT         = "end_count";
+        public static final String COLUMN_ARROWS            = "arrows";
 
 
     }

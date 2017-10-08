@@ -192,9 +192,12 @@ public class ArcheryDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE = "CREATE TABLE " + SessionMakeup.TABLE_NAME + " (" +
                 SessionMakeup._ID + " INTEGER PRIMARY KEY, " +
                 SessionMakeup.COLUMN_SESSION_ID + " INTEGER NOT NULL, " +
-                SessionMakeup.COLUMN_TARGET_TYPE_ID + " INTEGER NOT NULL, " +
-                SessionMakeup.COLUMN_END_COUNT + " INTEGER NOT NULL, " +
                 SessionMakeup.COLUMN_DISTANCE_ORDER + " INTEGER NOT NULL, " +
+                SessionMakeup.COLUMN_TARGET_TYPE_ID + " INTEGER NOT NULL, " +
+                SessionMakeup.COLUMN_DISTANCE + " INTEGER NOT NULL, " +
+                SessionMakeup.COLUMN_TARGET_SIZE + " INTEGER NOT NULL, " +
+                SessionMakeup.COLUMN_END_COUNT + " INTEGER NOT NULL, " +
+                SessionMakeup.COLUMN_ARROWS + " INTEGER NOT NULL, " +
 
                 " FOREIGN KEY (" + SessionMakeup.COLUMN_SESSION_ID + ") REFERENCES " +
                 Session.TABLE_NAME + " (" + Session._ID + ")," +
@@ -210,10 +213,9 @@ public class ArcheryDbHelper extends SQLiteOpenHelper {
         Log.v(LOG_TAG, "createTargetTypeConst: start");
         final String SQL_CREATE = "CREATE TABLE " + TargetTypeConst.TABLE_NAME + " (" +
                 TargetTypeConst._ID + " INTEGER PRIMARY KEY, " +
-                TargetTypeConst.COLUMN_DISTANCE + " INTEGER NOT NULL, " +
-                TargetTypeConst.COLUMN_UNITS + " TEXT NOT NULL, " +             // TODO: Do I want this to be an ID?
-                TargetTypeConst.COLUMN_TARGET_SIZE + " INTEGER NOT NULL, " +    // In CM TODO: an ID?
-                TargetTypeConst.COLUMN_ZONE_COUNT + " INTEGER NOT NULL " +      // TODO: May want to change this to an ID ( const table specific for listing zones ) or a string listing available zones
+                TargetTypeConst.COLUMN_NAME + " TEXT NOT NULL, " +
+                TargetTypeConst.COLUMN_CODE + " TEXT NOT NULL, " +
+                TargetTypeConst.COLUMN_ZONES + " TEXT NOT NULL " +
 
                 " );";
         sqLiteDatabase.execSQL(SQL_CREATE);
@@ -252,9 +254,12 @@ public class ArcheryDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE = "CREATE TABLE " + RoundMakeup.TABLE_NAME + " (" +
                 RoundMakeup._ID + " INTEGER PRIMARY KEY, " +
                 RoundMakeup.COLUMN_ROUND_ID + " INTEGER NOT NULL, " +
-                RoundMakeup.COLUMN_TARGET_TYPE_ID + " INTEGER NOT NULL, " +
-                RoundMakeup.COLUMN_END_COUNT + " INTEGER NOT NULL, " +
                 RoundMakeup.COLUMN_DISTANCE_ORDER + " INTEGER NOT NULL, " +
+                RoundMakeup.COLUMN_TARGET_TYPE_ID + " INTEGER NOT NULL, " +
+                RoundMakeup.COLUMN_DISTANCE + " INTEGER NOT NULL, " +
+                RoundMakeup.COLUMN_TARGET_SIZE + " INTEGER NOT NULL, " +
+                RoundMakeup.COLUMN_END_COUNT + " INTEGER NOT NULL, " +
+                RoundMakeup.COLUMN_ARROWS + " INTEGER NOT NULL, " +
 
                 " FOREIGN KEY (" + RoundMakeup.COLUMN_ROUND_ID + ") REFERENCES " +
                     RoundConst.TABLE_NAME + " (" + RoundConst._ID + ") ," +
