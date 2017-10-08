@@ -37,11 +37,16 @@
 
     </rules>
 
-    <scoring_type>
-        <!-- Maybe define explicit target types ( 10 zone, 5 zone, Metric Inner 10 etc )
-            we dont put target distance though -->
+    <target_type>
 
-        <record _id="1" distance="30" units="m" target_size="80" zone_count="10"/>
+        <record _id="1" name="Metric" code="METRIC" zones="X,10,9,8,7,6,5,4,3,2,1" />
+        <record _id="2" name="Imperial" code="IMPERIAL" zones="9,7,5,3,1"/>
+        <record _id="3" name="Compound Metric 'Inner ten'" code="METRIC_C" zones="10,9,8,7,6,5,4,3,2,1"/>
+        <record _id="4" name="Triple/Vegas/FITA 5 Zone" code="FITA5" zones="??????"/>
+        <record _id="5" name="Compound Trip/Vegas/FITA5 'Inner 10'" code="FITA5_C" zones="???????"/>
+        <record _id="6" name="Worcester" code="WORCESTER" zones="?????"/>
+        <record _id="7" name="FITA 6 zone" code="FITA6" zones="?????"/>
+        <record _id="8" name="Beiter Hit/Miss" code="BEITER" zones="1" />
 
-    </scoring_type>
+    </target_type>
 </constants>
