@@ -9,9 +9,9 @@
         <record _id="6" name="Bowman 3rd Class"/>
     </classification>
     <session_state>
-        <record _id="1" name="Practice" official="0"/>
-        <record _id="2" name="Club Shoot" official="1"/>
-        <record _id="3" name="Competition" official="1"/>
+        <record _id="1" name="Practice" official="false"/>
+        <record _id="2" name="Club Shoot" official="true"/>
+        <record _id="3" name="Competition" official="true"/>
     </session_state>
     <arrow>
         <record _id="0" name="Miss" value="0"/>  <!-- might want this one to be a +ve number -->
@@ -37,16 +37,18 @@
 
     </rules>
 
+
     <target_type>
 
         <record _id="1" name="Metric" code="METRIC" zones="X,10,9,8,7,6,5,4,3,2,1" />
         <record _id="2" name="Imperial" code="IMPERIAL" zones="9,7,5,3,1"/>
         <record _id="3" name="Compound Metric 'Inner ten'" code="METRIC_C" zones="10,9,8,7,6,5,4,3,2,1"/>
-        <record _id="4" name="Triple/Vegas/FITA 5 Zone" code="FITA5" zones="??????"/>
-        <record _id="5" name="Compound Trip/Vegas/FITA5 'Inner 10'" code="FITA5_C" zones="???????"/>
-        <record _id="6" name="Worcester" code="WORCESTER" zones="?????"/>
-        <record _id="7" name="FITA 6 zone" code="FITA6" zones="?????"/>
+        <record _id="4" name="Triple/Vegas/FITA 5 Zone" code="FITA5" zones="X,10,9,8,7,6"/>
+        <record _id="5" name="Compound Trip/Vegas/FITA5 'Inner 10'" code="FITA5_C" zones="10,9,8,7,6"/>
+        <record _id="6" name="Worcester" code="WORCESTER" zones="5,4,3,2,1"/>
+        <record _id="7" name="FITA 6 zone" code="FITA6" zones="X,10,9,8,7,6,5"/>
         <record _id="8" name="Beiter Hit/Miss" code="BEITER" zones="1" />
 
     </target_type>
+
 </constants>
