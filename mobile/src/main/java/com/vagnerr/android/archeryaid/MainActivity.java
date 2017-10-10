@@ -1,6 +1,7 @@
 package com.vagnerr.android.archeryaid;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -35,6 +36,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -189,7 +191,7 @@ public class MainActivity extends AppCompatActivity
         InputStream stream = null;
         // Instantiate the parser
         DBConstantsXmlParser DBConstantsXmlParser = new DBConstantsXmlParser();
-        List<DBConstantsXmlParser.Entry> entries = null;
+        HashMap<String, List> entries = null;
         String title = null;
         String url = null;
         String summary = null;
@@ -213,7 +215,25 @@ public class MainActivity extends AppCompatActivity
 
             Log.v(LOG_TAG, "url downloaded starting parse");
             entries = DBConstantsXmlParser.parse(stream);
+
             Log.v(LOG_TAG, " parse  completed?");
+            Log.v(LOG_TAG, " DB Inserts...");
+
+            List classifications = entries.get("classification");
+            for (Object clo : classifications) {
+                com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification cl = (com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification) clo;
+                ContentValues content = new ContentValues();
+                content.put(ArcheryContract.ClassificationConst._ID, cl.id);
+                content.put(ArcheryContract.ClassificationConst.COLUMN_NAME, cl.name);
+                ContentResolver cp = getContentResolver();
+                cp.insert(ArcheryContract.ClassificationConst.CONTENT_URI, content);
+            }
+
+
+
+
+
+
             // Makes sure that the InputStream is closed after the app is
             // finished using it.
         } finally {

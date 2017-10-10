@@ -1,5 +1,7 @@
 package com.vagnerr.android.archeryaid.data;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.util.Log;
 import android.util.Xml;
 
@@ -9,6 +11,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,7 +22,7 @@ public class DBConstantsXmlParser {
     private final String LOG_TAG = DBConstantsXmlParser.class.getSimpleName();
     private static final String ns = null;
 
-    public List parse(InputStream in ) throws XmlPullParserException, IOException {
+    public HashMap<String, List> parse(InputStream in ) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
@@ -31,13 +34,15 @@ public class DBConstantsXmlParser {
         }        
     }
 
-    private List readConstants(XmlPullParser parser)  throws XmlPullParserException, IOException {
+    private HashMap<String, List> readConstants(XmlPullParser parser)  throws XmlPullParserException, IOException {
         List entries = new ArrayList();
         List classifications = new ArrayList();
         List session_states = new ArrayList();
         List arrows = new ArrayList();
         List rules = new ArrayList();
         List target_types = new ArrayList();
+
+        HashMap<String,List> constants = new HashMap<String, List>();
 
         Log.v(LOG_TAG, "readConstants() start");
         parser.require(XmlPullParser.START_TAG, ns, "constants");
@@ -52,14 +57,19 @@ public class DBConstantsXmlParser {
                 entries.add(readEntry(parser));
             } else if (name.equals("classification")) {
                 classifications = readClassification(parser);
+                constants.put("classification", classifications);
             } else if (name.equals("session_state")) {
                 session_states = readSessionState(parser);
+                constants.put("session_state", session_states);
             } else if (name.equals("arrow")) {
                 arrows = readArrows(parser);
+                constants.put("arrow", arrows);
             } else if (name.equals("rules")) {
                 rules = readRules(parser);
+                constants.put("rules", rules);
             } else if (name.equals("target_type")) {
                 target_types = readTargetType(parser);
+                constants.put("target_type",target_types);
 
             } else {
                 Log.v(LOG_TAG, "SKIP1:" + name);
@@ -73,7 +83,7 @@ public class DBConstantsXmlParser {
         Log.v(LOG_TAG, "AR:" + arrows);
         Log.v(LOG_TAG, "RL:" + rules);
         Log.v(LOG_TAG, "TT:" + target_types);
-        return entries;
+        return constants;
     }
 
 
@@ -166,6 +176,8 @@ public class DBConstantsXmlParser {
             if (name.equals("record")) {
                 Classification cl = readClassificationRecord(parser);
                 classifications.add(cl);
+
+
                 Log.v(LOG_TAG, "Classification: " + cl);
             } else {
                 Log.v(LOG_TAG, "SKIP3:" + name);
@@ -362,6 +374,9 @@ Log.v(LOG_TAG, "readTargetType...");
             }
         }
     }
+
+
+
 
     public static class Entry {
         public final String title;

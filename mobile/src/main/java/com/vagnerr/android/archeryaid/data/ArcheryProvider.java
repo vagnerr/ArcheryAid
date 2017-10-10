@@ -2,8 +2,10 @@ package com.vagnerr.android.archeryaid.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
@@ -23,18 +25,32 @@ public class ArcheryProvider extends ContentProvider {
     private ArcheryDbHelper mOpenHelper;
 
 
-    static final int ARROW_COUNT = 100;
-    static final int ARROW_COUNT_HISTORY = 110;
+    static final int ARROW_COUNT            = 100;
+    static final int ARROW_COUNT_HISTORY    = 110;
+
+    static final int CLASSIFICATIONCONST    = 200;
+    static final int SESSIONSTATECONST      = 210;
+    static final int ARROWCONST             = 220;
+    static final int RULESCONST             = 230;
+    static final int TARGETTYPECONST        = 240;
+
 
     //private static final SQLiteQueryBuilder sArcheryQueryBuilder;
 
     private static UriMatcher buildUriMatcher() {
 
         UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-
         String authority = ArcheryContract.CONTENT_AUTHORITY;
+
         sURIMatcher.addURI(authority, ArcheryContract.PATH_ARROWCOUNT , ARROW_COUNT);
         sURIMatcher.addURI(authority, ArcheryContract.PATH_ARROWCOUNTHISTORY + "/#", ARROW_COUNT_HISTORY);
+
+        sURIMatcher.addURI(authority, ArcheryContract.PATH_CLASSIFICATIONCONST, CLASSIFICATIONCONST);
+        sURIMatcher.addURI(authority, ArcheryContract.PATH_SESSIONSTATECONST, SESSIONSTATECONST);
+        sURIMatcher.addURI(authority, ArcheryContract.PATH_ARROWCONST, ARROWCONST);
+        sURIMatcher.addURI(authority, ArcheryContract.PATH_RULESCONST, RULESCONST);
+        sURIMatcher.addURI(authority, ArcheryContract.PATH_TARGETTYPECONST, TARGETTYPECONST);
+
         return sURIMatcher;
     }
 
@@ -145,7 +161,15 @@ public class ArcheryProvider extends ContentProvider {
                 long _id = db.insert(ArcheryContract.ArrowCount.TABLE_NAME, null, values);
 
                 if( _id > 0 )
-                    returnUri = ArcheryContract.ArrowCount.buildArrowCountUri(_id);
+                    returnUri = ArcheryContract.ArrowCount.buildArrowCountUri(_id);   // TODO: Refactor to buildUri so that we can refactor to be more polymorphic ?
+                else
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                break;
+            }
+            case CLASSIFICATIONCONST: {
+                long _id = db.insert(ArcheryContract.ClassificationConst.TABLE_NAME, null, values);
+                if( _id > 0 )
+                    returnUri = ArcheryContract.ClassificationConst.buildUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
@@ -156,6 +180,42 @@ public class ArcheryProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return returnUri;
+    }
+
+    @Override
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
+        int inserted = 0;
+        String table;
+
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+
+        switch (match) {
+            case CLASSIFICATIONCONST:
+                table = ArcheryContract.ClassificationConst.TABLE_NAME;
+                break;
+
+            default:
+                throw new android.database.SQLException("Unknown uri:" + uri);
+        }
+
+        db.beginTransaction();
+        try {
+            for (ContentValues cv : values) {
+                long _id = db.insertOrThrow(table,null,cv);
+                if ( _id <= 0 ){
+                    throw new SQLException("Failed to insert row into " +uri);
+                }
+            }
+            db.setTransactionSuccessful();
+            getContext().getContentResolver().notifyChange(uri,null);
+            inserted = values.length;
+        }
+        finally {
+            db.endTransaction();
+        }
+
+        return inserted;
     }
 
     @Override

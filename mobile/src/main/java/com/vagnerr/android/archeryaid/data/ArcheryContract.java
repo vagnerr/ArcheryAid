@@ -20,21 +20,21 @@ public class ArcheryContract {
     public static final String PATH_ARROWCOUNTHISTORY = "arrowcount/history";
 
     // Round Definition:
-    private static final String PATH_ROUNDMAKEUP        = "roundmakeup";
-    private static final String PATH_TARGETTYPECONST    = "targettypeconst";
-    private static final String PATH_ROUNDCONST         = "roundconst";
-    private static final String PATH_RULESCONST         = "rulesconst";
+    public static final String PATH_ROUNDMAKEUP        = "roundmakeup";
+    public static final String PATH_TARGETTYPECONST    = "targettypeconst";
+    public static final String PATH_ROUNDCONST         = "roundconst";
+    public static final String PATH_RULESCONST         = "rulesconst";
 
     // Shooting Session:
-    private static final String PATH_END            = "end";
-    private static final String PATH_SESSION        = "session";
-    private static final String PATH_SESSIONMAKEUP  = "sessionmakeup";
+    public static final String PATH_END            = "end";
+    public static final String PATH_SESSION        = "session";
+    public static final String PATH_SESSIONMAKEUP  = "sessionmakeup";
 
 
     // Other Constants:
-    private static final String PATH_ARROWCONST             = "arrowconst";
-    private static final String PATH_CLASSIFICATIONCONST    = "classificationconst";
-    private static final String PATH_SESSIONSTATECONST      = "sessionstateconst";
+    public static final String PATH_ARROWCONST             = "arrowconst";
+    public static final String PATH_CLASSIFICATIONCONST    = "classificationconst";
+    public static final String PATH_SESSIONSTATECONST      = "sessionstateconst";
 
     // To make it easy to query for the exact date items, we normalise dates on certain data
     // ( eg arrow counts per day ) that go into the database to the start of the the Julian day at UTC.
@@ -299,6 +299,10 @@ public class ArcheryContract {
 
         public static final String TABLE_NAME       = "classification_const";
         public static final String COLUMN_NAME      = "name";
+
+        public static Uri buildUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
     }
 
     public static final class SessionStateConst implements BaseColumns {
