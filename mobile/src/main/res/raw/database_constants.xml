@@ -14,18 +14,20 @@
         <record _id="3" name="Competition" official="true"/>
     </session_state>
     <arrow>
-        <record _id="0" name="Miss" value="0"/>  <!-- might want this one to be a +ve number -->
-        <record _id="1" name="1" value="1"/>
-        <record _id="2" name="2" value="2"/>
-        <record _id="3" name="3" value="3"/>
-        <record _id="4" name="4" value="4"/>
-        <record _id="5" name="5" value="5"/>
-        <record _id="6" name="6" value="6"/>
-        <record _id="7" name="7" value="7"/>
-        <record _id="8" name="8" value="8"/>
-        <record _id="9" name="9" value="9"/>
-        <record _id="10" name="10" value="10"/>
-        <record _id="11" name="X" value="10"/>
+        <!-- ID's have to be +ve and want standard numbers to be consistent
+             so using multiples of 10 with non multiples for "special" -->
+        <record _id="1" name="Miss" value="0"/>
+        <record _id="10" name="1" value="1"/>
+        <record _id="20" name="2" value="2"/>
+        <record _id="30" name="3" value="3"/>
+        <record _id="40" name="4" value="4"/>
+        <record _id="50" name="5" value="5"/>
+        <record _id="60" name="6" value="6"/>
+        <record _id="70" name="7" value="7"/>
+        <record _id="80" name="8" value="8"/>
+        <record _id="90" name="9" value="9"/>
+        <record _id="100" name="10" value="10"/>
+        <record _id="101" name="X" value="10"/>
     </arrow>
     <rules>
         <record _id="1" name="Custom"/>

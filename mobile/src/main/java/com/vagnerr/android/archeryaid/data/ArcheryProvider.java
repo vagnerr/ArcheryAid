@@ -194,9 +194,20 @@ public class ArcheryProvider extends ContentProvider {
             case CLASSIFICATIONCONST:
                 table = ArcheryContract.ClassificationConst.TABLE_NAME;
                 break;
-
+            case SESSIONSTATECONST:
+                table = ArcheryContract.SessionStateConst.TABLE_NAME;
+                break;
+            case ARROWCONST:
+                table = ArcheryContract.ArrowConst.TABLE_NAME;
+                break;
+            case RULESCONST:
+                table = ArcheryContract.RulesConst.TABLE_NAME;
+                break;
+            case TARGETTYPECONST:
+                table = ArcheryContract.TargetTypeConst.TABLE_NAME;
+                break;
             default:
-                throw new android.database.SQLException("Unknown uri:" + uri);
+                throw new android.database.SQLException("Unknown/unsupported uri for bulkInsert:" + uri);
         }
 
         db.beginTransaction();
@@ -204,7 +215,7 @@ public class ArcheryProvider extends ContentProvider {
             for (ContentValues cv : values) {
                 long _id = db.insertOrThrow(table,null,cv);
                 if ( _id <= 0 ){
-                    throw new SQLException("Failed to insert row into " +uri);
+                    throw new SQLException("Failed to insert row into " +uri+" Values:" + cv);
                 }
             }
             db.setTransactionSuccessful();
@@ -228,8 +239,22 @@ public class ArcheryProvider extends ContentProvider {
             case ARROW_COUNT: {
                 rowsDeleted = db.delete(ArcheryContract.ArrowCount.TABLE_NAME, selection, selectionArgs);
                 break;
-
             }
+            case CLASSIFICATIONCONST:
+                rowsDeleted = db.delete(ArcheryContract.ClassificationConst.TABLE_NAME, selection, selectionArgs);
+                break;
+            case SESSIONSTATECONST:
+                rowsDeleted = db.delete(ArcheryContract.SessionStateConst.TABLE_NAME, selection, selectionArgs);
+                break;
+            case ARROWCONST:
+                rowsDeleted = db.delete(ArcheryContract.ArrowConst.TABLE_NAME, selection, selectionArgs);
+                break;
+            case RULESCONST:
+                rowsDeleted = db.delete(ArcheryContract.RulesConst.TABLE_NAME, selection, selectionArgs);
+                break;
+            case TARGETTYPECONST:
+                rowsDeleted = db.delete(ArcheryContract.TargetTypeConst.TABLE_NAME, selection, selectionArgs);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri + " MTCH: " + match);
         }

@@ -208,6 +208,8 @@ public class MainActivity extends AppCompatActivity
         //        formatter.format(rightNow.getTime()) + "</em>");
 
         try {
+            // TODO: only run this code when its needed
+
             //TODO: LOAD FILE FROM RESOURSE
             Log.v(LOG_TAG, "DOWNLOADING URL");
             stream = downloadUrl(urlString);
@@ -219,15 +221,53 @@ public class MainActivity extends AppCompatActivity
             Log.v(LOG_TAG, " parse  completed?");
             Log.v(LOG_TAG, " DB Inserts...");
 
-            List classifications = entries.get("classification");
-            for (Object clo : classifications) {
-                com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification cl = (com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification) clo;
-                ContentValues content = new ContentValues();
-                content.put(ArcheryContract.ClassificationConst._ID, cl.id);
-                content.put(ArcheryContract.ClassificationConst.COLUMN_NAME, cl.name);
-                ContentResolver cp = getContentResolver();
-                cp.insert(ArcheryContract.ClassificationConst.CONTENT_URI, content);
-            }
+            // TODO: Refactor this so we are not doing each table by hand.
+
+            ContentResolver db = getContentResolver();
+
+            // Clear these tables first so we don't get insert fails on re-runs
+            db.delete(ArcheryContract.ClassificationConst.CONTENT_URI,null,null);
+            db.delete(ArcheryContract.SessionStateConst.CONTENT_URI,null,null);
+            db.delete(ArcheryContract.ArrowConst.CONTENT_URI,null,null);
+            db.delete(ArcheryContract.RulesConst.CONTENT_URI,null,null);
+            db.delete(ArcheryContract.TargetTypeConst.CONTENT_URI,null,null);
+
+            List items = entries.get("classification");
+            ContentValues[] bulkToInsert = new ContentValues[items.size()];
+            items.toArray(bulkToInsert);
+            db.bulkInsert(ArcheryContract.ClassificationConst.CONTENT_URI, bulkToInsert);
+
+            items = entries.get("session_state");
+            bulkToInsert = new ContentValues[items.size()];
+            items.toArray(bulkToInsert);
+            db.bulkInsert(ArcheryContract.SessionStateConst.CONTENT_URI, bulkToInsert);
+
+            items = entries.get("arrow");
+            bulkToInsert = new ContentValues[items.size()];
+            items.toArray(bulkToInsert);
+            db.bulkInsert(ArcheryContract.ArrowConst.CONTENT_URI, bulkToInsert);
+
+            items = entries.get("rules");
+            bulkToInsert = new ContentValues[items.size()];
+            items.toArray(bulkToInsert);
+            db.bulkInsert(ArcheryContract.RulesConst.CONTENT_URI, bulkToInsert);
+
+            items = entries.get("target_type");
+            bulkToInsert = new ContentValues[items.size()];
+            items.toArray(bulkToInsert);
+            db.bulkInsert(ArcheryContract.TargetTypeConst.CONTENT_URI, bulkToInsert);
+            Log.v(LOG_TAG, "... DB Inserts complete");
+
+
+//
+//            for (Object clo : classifications) {
+//                com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification cl = (com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification) clo;
+//                ContentValues content = new ContentValues();
+//                content.put(ArcheryContract.ClassificationConst._ID, cl.id);
+//                content.put(ArcheryContract.ClassificationConst.COLUMN_NAME, cl.name);
+//                ContentResolver cp = getContentResolver();
+//                cp.insert(ArcheryContract.ClassificationConst.CONTENT_URI, content);
+//            }
 
 
 

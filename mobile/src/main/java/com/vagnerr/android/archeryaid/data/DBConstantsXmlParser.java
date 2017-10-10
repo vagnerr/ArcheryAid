@@ -52,10 +52,7 @@ public class DBConstantsXmlParser {
             }
             String name = parser.getName();
             // Starts by looking for the entry tag
-            if (name.equals("entry")) {
-                //TODO: Example code only. to be removed
-                entries.add(readEntry(parser));
-            } else if (name.equals("classification")) {
+            if (name.equals("classification")) {
                 classifications = readClassification(parser);
                 constants.put("classification", classifications);
             } else if (name.equals("session_state")) {
@@ -97,7 +94,7 @@ public class DBConstantsXmlParser {
             }
             String name = parser.getName();
             if (name.equals("record")) {
-                Arrow ar = readArrowRecord(parser);
+                ContentValues ar = readArrowRecord(parser);
                 arrows.add(ar);
                 Log.v(LOG_TAG, "Arrow: " + ar);
             } else {
@@ -109,7 +106,7 @@ public class DBConstantsXmlParser {
         return arrows;
     }
 
-    private Arrow readArrowRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private ContentValues readArrowRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, ns, "record");
         String tag = parser.getName();
 
@@ -121,8 +118,11 @@ public class DBConstantsXmlParser {
         parser.nextTag();
         parser.require(XmlPullParser.END_TAG, ns, "record");
 
-        return new Arrow(id,name,value);
-
+        ContentValues cv = new ContentValues();
+        cv.put(ArcheryContract.ArrowConst._ID, id);
+        cv.put(ArcheryContract.ArrowConst.COLUMN_NAME, name);
+        cv.put(ArcheryContract.ArrowConst.COLUMN_VALUE, value);
+        return cv;
     }
 
     private List readSessionState(XmlPullParser parser) throws  XmlPullParserException, IOException  {
@@ -135,7 +135,7 @@ public class DBConstantsXmlParser {
             }
             String name = parser.getName();
             if (name.equals("record")) {
-                SessionState ss = readSessionStateRecord(parser);
+                ContentValues ss = readSessionStateRecord(parser);
                 session_states.add(ss);
                 Log.v(LOG_TAG, "SessionState: " + ss);
             } else {
@@ -147,7 +147,7 @@ public class DBConstantsXmlParser {
         return session_states;
     }
 
-    private SessionState readSessionStateRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private ContentValues readSessionStateRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, ns, "record");
         String tag = parser.getName();
 
@@ -159,8 +159,11 @@ public class DBConstantsXmlParser {
         parser.nextTag();
         parser.require(XmlPullParser.END_TAG, ns, "record");
 
-        return new SessionState(id,name,official);
-
+        ContentValues cv = new ContentValues();
+        cv.put(ArcheryContract.SessionStateConst._ID, id);
+        cv.put(ArcheryContract.SessionStateConst.COLUMN_NAME, name);
+        cv.put(ArcheryContract.SessionStateConst.COLUMN_OFFICIAL, official);
+        return cv;
     }
 
 
@@ -174,7 +177,7 @@ public class DBConstantsXmlParser {
             }
             String name = parser.getName();
             if (name.equals("record")) {
-                Classification cl = readClassificationRecord(parser);
+                ContentValues cl = readClassificationRecord(parser);
                 classifications.add(cl);
 
 
@@ -189,7 +192,7 @@ public class DBConstantsXmlParser {
     }
 
 
-    private Classification readClassificationRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private ContentValues readClassificationRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
         //Integer id = 0;
         String link = "";
         parser.require(XmlPullParser.START_TAG, ns, "record");
@@ -199,8 +202,10 @@ public class DBConstantsXmlParser {
         parser.nextTag();
         parser.require(XmlPullParser.END_TAG, ns, "record");
 
-        return new Classification(id,name);
-
+        ContentValues cv = new ContentValues();
+        cv.put(ArcheryContract.ClassificationConst._ID,id);
+        cv.put(ArcheryContract.ClassificationConst.COLUMN_NAME, name);
+        return cv;
     }
 
 
@@ -215,7 +220,7 @@ public class DBConstantsXmlParser {
             }
             String name = parser.getName();
             if (name.equals("record")) {
-                Rule rule = readRuleRecord(parser);
+                ContentValues rule = readRuleRecord(parser);
                 rules.add(rule);
                 Log.v(LOG_TAG, "Rule: " + rule);
             } else {
@@ -228,7 +233,7 @@ public class DBConstantsXmlParser {
     }
 
 
-    private Rule readRuleRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private ContentValues readRuleRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
         //Integer id = 0;
         String link = "";
         parser.require(XmlPullParser.START_TAG, ns, "record");
@@ -238,14 +243,16 @@ public class DBConstantsXmlParser {
         parser.nextTag();
         parser.require(XmlPullParser.END_TAG, ns, "record");
 
-        return new Rule(id,name);
-
+        ContentValues cv = new ContentValues();
+        cv.put(ArcheryContract.RulesConst._ID, id);
+        cv.put(ArcheryContract.RulesConst.COLUMN_NAME, name);
+        return cv;
     }
 
 
     private List readTargetType(XmlPullParser parser) throws  XmlPullParserException, IOException {
         List targets = new ArrayList();
-Log.v(LOG_TAG, "readTargetType...");
+
         parser.require(XmlPullParser.START_TAG, ns, "target_type");
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -253,7 +260,7 @@ Log.v(LOG_TAG, "readTargetType...");
             }
             String name = parser.getName();
             if (name.equals("record")) {
-                TargetType target = readTargetTypeRecord(parser);
+                ContentValues target = readTargetTypeRecord(parser);
                 targets.add(target);
                 Log.v(LOG_TAG, "TargetT: " + target);
             } else {
@@ -262,11 +269,12 @@ Log.v(LOG_TAG, "readTargetType...");
                 skip(parser);
             }
         }
+
         return targets;
     }
 
 
-    private TargetType readTargetTypeRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private ContentValues readTargetTypeRecord(XmlPullParser parser) throws IOException, XmlPullParserException {
         //Integer id = 0;
         String link = "";
         parser.require(XmlPullParser.START_TAG, ns, "record");
@@ -278,85 +286,18 @@ Log.v(LOG_TAG, "readTargetType...");
         parser.nextTag();
         parser.require(XmlPullParser.END_TAG, ns, "record");
 
-        return new TargetType(id,name,code,zones);
-
+        ContentValues cv = new ContentValues();
+        cv.put(ArcheryContract.TargetTypeConst._ID,id);
+        cv.put(ArcheryContract.TargetTypeConst.COLUMN_NAME, name);
+        cv.put(ArcheryContract.TargetTypeConst.COLUMN_CODE, code);
+        cv.put(ArcheryContract.TargetTypeConst.COLUMN_ZONES, zones);
+        return cv;
     }
 
 
 
 
 
-
-    // Processes link tags in the feed.
-    private String readLink(XmlPullParser parser) throws IOException, XmlPullParserException {
-        String link = "";
-        parser.require(XmlPullParser.START_TAG, ns, "link");
-        String tag = parser.getName();
-        String relType = parser.getAttributeValue(null, "rel");
-        if (tag.equals("link")) {
-            if (relType.equals("alternate")){
-                link = parser.getAttributeValue(null, "href");
-                parser.nextTag();
-            }
-        }
-        parser.require(XmlPullParser.END_TAG, ns, "link");
-        return link;
-    }
-
-
-    private Entry readEntry(XmlPullParser parser) throws XmlPullParserException, IOException {
-        Log.v(LOG_TAG, "readEntry() start");
-
-        parser.require(XmlPullParser.START_TAG, ns, "entry");
-        String title = null;
-        String summary = null;
-        String link = null;
-        while (parser.next() != XmlPullParser.END_TAG) {
-            if (parser.getEventType() != XmlPullParser.START_TAG) {
-                continue;
-            }
-            String name = parser.getName();
-            if (name.equals("title")) {
-                title = readTitle(parser);
-            } else if (name.equals("summary")) {
-                summary = readSummary(parser);
-            } else if (name.equals("link")) {
-                link = readLink(parser);
-            } else {
-                skip(parser);
-            }
-        }
-        return new Entry(title, summary, link);
-
-    }
-
-    // Processes title tags in the feed.
-    private String readTitle(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, "title");
-        String title = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, "title");
-        return title;
-    }
-
-
-
-    // Processes summary tags in the feed.
-    private String readSummary(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, ns, "summary");
-        String summary = readText(parser);
-        parser.require(XmlPullParser.END_TAG, ns, "summary");
-        return summary;
-    }
-
-    // For the tags title and summary, extracts their text values.
-    private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
-        String result = "";
-        if (parser.next() == XmlPullParser.TEXT) {
-            result = parser.getText();
-            parser.nextTag();
-        }
-        return result;
-    }
 
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
         if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -378,95 +319,6 @@ Log.v(LOG_TAG, "readTargetType...");
 
 
 
-    public static class Entry {
-        public final String title;
-        public final String link;
-        public final String summary;
-
-        private Entry(String title, String summary, String link) {
-            this.title = title;
-            this.summary = summary;
-            this.link = link;
-        }
-    }
-    public static class Classification {
-        public final Integer id;
-        public final String name;
-
-        private Classification(Integer id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return "Classification("+this.id+","+this.name+")";
-        }
-    }
-    public static class SessionState {
-        public final Integer    id;
-        public final String     name;
-        public final Boolean    official;
-
-        private SessionState(Integer id, String name, Boolean official) {
-            this.id         = id;
-            this.name       = name;
-            this.official   = official;
-        }
-
-        @Override
-        public String toString() {
-            return "SessionState("+this.id+","+this.name+","+this.official+")";
-        }
-    }
-    public static class Arrow {
-        public final Integer    id;
-        public final String     name;
-        public final Integer    value;
-
-        private Arrow(Integer id, String name, Integer value) {
-            this.id         = id;
-            this.name       = name;
-            this.value      = value;
-        }
-
-        @Override
-        public String toString() {
-            return "Arrow("+this.id+","+this.name+"="+this.value+" points)";
-        }
-    }
-    public static class Rule {
-        public final Integer id;
-        public final String name;
-
-        private Rule(Integer id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return "Rule("+this.id+","+this.name+")";
-        }
-    }
-    public static class TargetType {
-        public final Integer id;
-        public final String name;
-        public final String code;
-        public final String zones;
-
-        private TargetType(Integer id, String name, String code, String zones) {
-            this.id = id;
-            this.name = name;
-            this.code = code;
-            this.zones = zones;
-        }
-
-        @Override
-        public String toString() {
-            return "Rule("+this.id+","+this.name+"("+this.code+") = \""+this.zones+"\")";
-        }
-    }
 
 }
 
