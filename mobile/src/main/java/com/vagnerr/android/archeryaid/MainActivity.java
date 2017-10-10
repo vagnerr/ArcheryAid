@@ -8,10 +8,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,8 +28,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -99,9 +94,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Log.v(LOG_TAG, "Time to do the XML");
-        new DownloadXmlTask().execute("https://www.vagnerr.com/foobar.xml");
-        Log.v(LOG_TAG, "XML DONE");
+        // TODO: Only run this when needed
+        Log.v(LOG_TAG, "Loading XML Constants into DB");
+        new InitialiseDBConstants().execute();
+        Log.v(LOG_TAG, "DB DONE");
 
     }
 
@@ -186,36 +182,27 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private String loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
-        Log.v(LOG_TAG, "loadXmlFromNetwork....");
+    private Boolean loadXMLtoDB() throws XmlPullParserException, IOException {
+        Log.v(LOG_TAG, "loadXMLtoDB....");
         InputStream stream = null;
         // Instantiate the parser
         DBConstantsXmlParser DBConstantsXmlParser = new DBConstantsXmlParser();
         HashMap<String, List> entries = null;
-        String title = null;
-        String url = null;
-        String summary = null;
-        Calendar rightNow = Calendar.getInstance();
-        DateFormat formatter = new SimpleDateFormat("MMM dd h:mmaa");
 
-        // Checks whether the user set the preference to include summary text
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean pref = sharedPrefs.getBoolean("summaryPref", false);
+//        // Checks whether the user set the preference to include summary text
+//        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        boolean pref = sharedPrefs.getBoolean("summaryPref", false);
 
-        StringBuilder htmlString = new StringBuilder();
-        //htmlString.append("<h3>" + getResources().getString(R.string.page_title) + "</h3>");
-        //htmlString.append("<em>" + getResources().getString(R.string.updated) + " " +
-        //        formatter.format(rightNow.getTime()) + "</em>");
 
         try {
             // TODO: only run this code when its needed
 
-            //TODO: LOAD FILE FROM RESOURSE
-            Log.v(LOG_TAG, "DOWNLOADING URL");
-            stream = downloadUrl(urlString);
+            Log.v(LOG_TAG, "LOADING DATA STREAM 'constants'");
+
+            stream = getResources().openRawResource(R.raw.database_constants);
             Log.v(LOG_TAG, ".... DONE");
 
-            Log.v(LOG_TAG, "url downloaded starting parse");
+            Log.v(LOG_TAG, "stream opened starting parse");
             entries = DBConstantsXmlParser.parse(stream);
 
             Log.v(LOG_TAG, " parse  completed?");
@@ -259,20 +246,6 @@ public class MainActivity extends AppCompatActivity
             Log.v(LOG_TAG, "... DB Inserts complete");
 
 
-//
-//            for (Object clo : classifications) {
-//                com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification cl = (com.vagnerr.android.archeryaid.data.DBConstantsXmlParser.Classification) clo;
-//                ContentValues content = new ContentValues();
-//                content.put(ArcheryContract.ClassificationConst._ID, cl.id);
-//                content.put(ArcheryContract.ClassificationConst.COLUMN_NAME, cl.name);
-//                ContentResolver cp = getContentResolver();
-//                cp.insert(ArcheryContract.ClassificationConst.CONTENT_URI, content);
-//            }
-
-
-
-
-
 
             // Makes sure that the InputStream is closed after the app is
             // finished using it.
@@ -282,60 +255,30 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        // StackOverflowXmlParser returns a List (called "entries") of Entry objects.
-        // Each Entry object represents a single post in the XML feed.
-        // This section processes the entries list to combine each entry with HTML markup.
-        // Each entry is displayed in the UI as a link that optionally includes
-        // a text summary.
-//TODO: push into database
-//            for (Entry entry : entries) {
-//                htmlString.append("<p><a href='");
-//                htmlString.append(entry.link);
-//                htmlString.append("'>" + entry.title + "</a></p>");
-//                // If the user set the preference to include summary text,
-//                // adds it to the display.
-//                if (pref) {
-//                    htmlString.append(entry.summary);
-//                }
-//            }
-        return htmlString.toString();
+
+        return true;
     }
 
 
-    // Given a string representation of a URL, sets up a connection and gets
-// an input stream.
-    private InputStream downloadUrl(String urlString) throws IOException {
-        URL url = new URL(urlString);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setReadTimeout(10000 /* milliseconds */);
-        conn.setConnectTimeout(15000 /* milliseconds */);
-        conn.setRequestMethod("GET");
-        conn.setDoInput(true);
-        // Starts the query
-        conn.connect();
-        return conn.getInputStream();
-    }
 
-    private class DownloadXmlTask extends AsyncTask<String, Void, String> {
+    private class InitialiseDBConstants extends AsyncTask<Void, Void, Boolean> {
         @Override
-        protected String doInBackground(String... urls) {
+        protected Boolean doInBackground(Void... voids) {
             Log.v(LOG_TAG, "background stuff");
             try {
-                return loadXmlFromNetwork(urls[0]);
+                return loadXMLtoDB();
+
             } catch (IOException e) {
-                return "OOOOOO NETWORK CONNECTION ERRROE"; // getResources().getString(R.string.connection_error);
+                Log.e(LOG_TAG, "Error loading XML data IO Exception: " + e );
+                return false;
             } catch (XmlPullParserException e) {
-                return "OOOOO XML ERRROR"; // getResources().getString(R.string.xml_error);
+                Log.e(LOG_TAG, "Error loading XML Parse error: " + e);
+                return false;
             }
         }
 
-        @Override
-        protected void onPostExecute(String result) {
-           // setContentView(R.layout.main);
-           // // Displays the HTML string in the UI via a WebView
-           // WebView myWebView = (WebView) findViewById(R.id.webview);
-           // myWebView.loadData(result, "text/html", null);
-        }
+
+
 
     }
 

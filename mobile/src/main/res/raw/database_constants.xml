@@ -36,6 +36,7 @@
         <record _id="4" name="GNAS Metric Outdoor"/>
         <record _id="5" name="GNAS Imperial Outdoor"/>
         <record _id="6" name="GNAS Indoor"/>
+        <record _id="777" name="Hell Round"/>
 
     </rules>
 
