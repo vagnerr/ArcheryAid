@@ -23,6 +23,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.vagnerr.android.archeryaid.data.ArcheryContract;
 import com.vagnerr.android.archeryaid.data.DBConstantsXmlParser;
+import com.vagnerr.android.archeryaid.data.DBRoundDefXmlParser;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -30,8 +31,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -256,10 +259,110 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+        // Load in round definitions....
+        DBRoundDefXmlParser DBRoundDefXmlParser = new DBRoundDefXmlParser();
+        List roundentries = null;
+
+        try {
+            Log.v(LOG_TAG, "LOADING DATA STREAM 'round definitions'");
+
+            stream = getResources().openRawResource(R.raw.round_definitions);
+            Log.v(LOG_TAG, ".... DONE");
+
+            Log.v(LOG_TAG, "stream opened starting parse");
+            roundentries = DBRoundDefXmlParser.parse(stream);
+
+
+
+
+            Log.v(LOG_TAG, " parse  completed?");
+            Log.v(LOG_TAG, " DB Inserts...");
+            Log.v(LOG_TAG, "   ... reformat data");
+            // we have [
+            //              {
+            //                  round => { /round_const data/ },
+            //                  round_makeup => { [ / round_makeup data / , ... ]
+            //              },
+            //              ...
+            //          ]
+            // round data is good for a bulk insert, but round_makup records need
+            // target_type_id to be converted from the target_type_const.code to _id
+            // for more efficient DB queries, then they can be bulk inserted.
+            List rounds = new ArrayList();
+            List round_targets = new ArrayList();
+            for (Iterator<HashMap> iterator = roundentries.iterator(); iterator.hasNext(); ){
+                HashMap round = iterator.next();
+
+                rounds.add(round.get("round"));
+
+                Log.v(LOG_TAG, "Round: " + round.get("round"));
+
+                ArrayList targets = (ArrayList)round.get("round_makeup");
+                for ( Iterator<ContentValues> t_iterator = targets.iterator() ; t_iterator.hasNext() ; ){
+                    ContentValues target = t_iterator.next();
+                    // change target_type_id from CODE to _id
+                    target.put(ArcheryContract.RoundMakeup.COLUMN_TARGET_TYPE_ID,
+                                getTargetTypeID(target.getAsString(ArcheryContract.RoundMakeup.COLUMN_TARGET_TYPE_ID)));
+
+
+                    round_targets.add(target); // Its ok to flatten them all into a single array for bulk import
+
+                    Log.v(LOG_TAG, "   T: "+ target);
+                }
+
+            }
+
+            // TODO: DB INSERTS
+            ContentResolver db = getContentResolver();
+
+            // Clear these tables first so we don't get insert fails on re-runs
+            // Note: round_makeup, then round_const ( due to constraints )
+            //       and vice-versa for the inserts
+            // TODO: limit deletes to keep user generated Custom entries
+            Log.v(LOG_TAG, "   ... clear old data");
+
+            db.delete(ArcheryContract.RoundMakeup.CONTENT_URI,null,null);
+            db.delete(ArcheryContract.RoundConst.CONTENT_URI,null,null);
+            Log.v(LOG_TAG, "   ... insert round_const data");
+
+            ContentValues[] bulkToInsert = new ContentValues[rounds.size()];
+            rounds.toArray(bulkToInsert);
+            db.bulkInsert(ArcheryContract.RoundConst.CONTENT_URI, bulkToInsert);
+            Log.v(LOG_TAG, "   ... insert round_makeup data");
+
+            bulkToInsert = new ContentValues[round_targets.size()];
+            round_targets.toArray(bulkToInsert);
+            db.bulkInsert(ArcheryContract.RoundMakeup.CONTENT_URI, bulkToInsert);
+
+            Log.v(LOG_TAG, "       ... all done");
+
+
+
+        } finally {
+            if (stream != null) {
+                stream.close();
+            }
+        }
+
+
         return true;
     }
 
-
+    // TODO: Replace this with a (cached ?) DB call in a util class ?
+    private Integer getTargetTypeID (String code) {
+        if( code == null ) {
+            throw new RuntimeException("NULL Target Code:"+code);
+        }
+        if( code.equals("METRIC")){
+            return 1;
+        }
+        else if ( code.equals("IMPERIAL")){
+            return 2;
+        }
+        else {
+            throw new RuntimeException("Unknown Target Code:"+code);
+        }
+    }
 
     private class InitialiseDBConstants extends AsyncTask<Void, Void, Boolean> {
         @Override

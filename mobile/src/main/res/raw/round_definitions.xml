@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rules>
-    <rule _id="1" name="Custom" official="0" custom="1">
-        <round _id="1001" name="Frostbite"
-            official="1"
+<rounds>
+    <rule rules_id="100" name="Custom" official="false" custom="true">
+        <round _id="100001" name="Frostbite"
+            official="true"
             season="Outdoor"
-            Units="Metric"
+            units="Metric"
             scoring="METRIC"
-            Arrows="6" >
+            arrows="6" >
             <target distance="30" size="80" ends="6" />
         </round>
     </rule>
-    <rule _id="2" name="FITA Outdoor"
-        official="1" custom="0" season="Outdoor" units="Metric"
-        arrows="6" Scoring="METRIC"
+    <rule rules_id="2" name="FITA Outdoor"
+        official="true" custom="false" season="Outdoor" units="Metric"
+        arrows="6" scoring="METRIC"
         >
         <round _id="2001" name="Short Metric" >
             <target distance="50" size="80" ends="6" />
@@ -27,16 +27,16 @@
         </round>
 
     </rule>
-    <rule _id="3" name="Fita Indoor"
-        official="1" custom="0" season="Indoor" units="Metric"
+    <rule rules_id="3" name="Fita Indoor"
+        official="true" custom="false" season="Indoor" units="Metric"
         arrows="6" scoring="METRIC"
         >
         <round _id="3001" name="FITA 18">
             <target distance="18" size="60" ends="10"/>
         </round>
     </rule>
-    <rule _id="5" name="GNAS Imperial Outdoor"
-        official="1" custom="0" season="Outdoor" units="Imperial"
+    <rule rules_id="5" name="GNAS Imperial Outdoor"
+        official="true" custom="false" season="Outdoor" units="Imperial"
         arrows="6" scoring="IMPERIAL"
         >
         <round _id="5001" name="York">
@@ -47,4 +47,4 @@
         </round>
     </rule>
 
-</rules>
+</rounds>

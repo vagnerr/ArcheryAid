@@ -33,6 +33,8 @@ public class ArcheryProvider extends ContentProvider {
     static final int ARROWCONST             = 220;
     static final int RULESCONST             = 230;
     static final int TARGETTYPECONST        = 240;
+    static final int ROUNDCONST             = 250;
+    static final int ROUNDMAKEUP            = 260;
 
 
     //private static final SQLiteQueryBuilder sArcheryQueryBuilder;
@@ -50,6 +52,8 @@ public class ArcheryProvider extends ContentProvider {
         sURIMatcher.addURI(authority, ArcheryContract.PATH_ARROWCONST, ARROWCONST);
         sURIMatcher.addURI(authority, ArcheryContract.PATH_RULESCONST, RULESCONST);
         sURIMatcher.addURI(authority, ArcheryContract.PATH_TARGETTYPECONST, TARGETTYPECONST);
+        sURIMatcher.addURI(authority, ArcheryContract.PATH_ROUNDCONST, ROUNDCONST);
+        sURIMatcher.addURI(authority, ArcheryContract.PATH_ROUNDMAKEUP, ROUNDMAKEUP);
 
         return sURIMatcher;
     }
@@ -206,6 +210,12 @@ public class ArcheryProvider extends ContentProvider {
             case TARGETTYPECONST:
                 table = ArcheryContract.TargetTypeConst.TABLE_NAME;
                 break;
+            case ROUNDCONST:
+                table = ArcheryContract.RoundConst.TABLE_NAME;
+                break;
+            case ROUNDMAKEUP:
+                table = ArcheryContract.RoundMakeup.TABLE_NAME;
+                break;
             default:
                 throw new android.database.SQLException("Unknown/unsupported uri for bulkInsert:" + uri);
         }
@@ -254,6 +264,12 @@ public class ArcheryProvider extends ContentProvider {
                 break;
             case TARGETTYPECONST:
                 rowsDeleted = db.delete(ArcheryContract.TargetTypeConst.TABLE_NAME, selection, selectionArgs);
+                break;
+            case ROUNDCONST:
+                rowsDeleted = db.delete(ArcheryContract.RoundConst.TABLE_NAME, selection, selectionArgs);
+                break;
+            case ROUNDMAKEUP:
+                rowsDeleted = db.delete(ArcheryContract.RoundMakeup.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri + " MTCH: " + match);

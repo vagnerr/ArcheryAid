@@ -30,12 +30,13 @@
         <record _id="101" name="X" value="10"/>
     </arrow>
     <rules>
-        <record _id="1" name="Custom"/>
         <record _id="2" name="FITA Outdoor"/>
         <record _id="3" name="FITA Indoor"/>
         <record _id="4" name="GNAS Metric Outdoor"/>
         <record _id="5" name="GNAS Imperial Outdoor"/>
         <record _id="6" name="GNAS Indoor"/>
+        <record _id="100" name="Custom"/>
+
         <record _id="777" name="Hell Round"/>
 
     </rules>

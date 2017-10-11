@@ -16,6 +16,16 @@ import java.util.List;
 
 /**
  * Created by Peter on 08/10/2017.
+ *
+ * Parse database_constants.xml to initialise the sql tables
+ *      target_type_const
+ *      rules_const
+ *      session_state_const
+ *      classification_const
+ *      arrow_const
+ * These tables *should* be static through the running of the app
+ * with only possibly new entries added for bugfixes/oversights
+ * (Thats the hope anyway)
  */
 
 public class DBConstantsXmlParser {
