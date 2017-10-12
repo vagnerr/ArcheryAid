@@ -1,9 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_editor_absoluteX="8dp"
+    tools:layout_editor_absoluteY="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vagnerr.android.archeryaid.RoundPickActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textTitleNewRound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Round"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="16dp"
+            tools:text="@string/new_round" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textRules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/rules"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                tools:layout_editor_absoluteX="25dp"
+                tools:layout_editor_absoluteY="57dp"
+                tools:text="Rules" />
+
+            <Spinner
+                android:id="@+id/ruleSpinner"
+                android:layout_width="214dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                tools:layout_editor_absoluteX="81dp"
+                tools:layout_editor_absoluteY="57dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <TextView
+                android:id="@+id/textRound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/round"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                tools:layout_editor_absoluteX="25dp"
+                tools:layout_editor_absoluteY="117dp"
+                tools:text="Round" />
+
+            <Spinner
+                android:id="@+id/roundSpinner"
+                android:layout_width="187dp"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                tools:layout_editor_absoluteX="111dp"
+                tools:layout_editor_absoluteY="117dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonStartRound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Round"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="211dp"
+            tools:text="@string/start_round" />
+    </LinearLayout>
+</RelativeLayout>
+

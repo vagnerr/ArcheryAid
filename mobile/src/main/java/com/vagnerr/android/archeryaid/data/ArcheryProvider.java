@@ -86,6 +86,90 @@ public class ArcheryProvider extends ContentProvider {
                 retCursor = getArrowCountHistory(uri, projection, sortOrder);
                 break;
             }
+            case CLASSIFICATIONCONST: {
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        ArcheryContract.ClassificationConst.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case SESSIONSTATECONST: {
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        ArcheryContract.SessionStateConst.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case ARROWCONST: {
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        ArcheryContract.ArrowConst.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case RULESCONST: {
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        ArcheryContract.RulesConst.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case TARGETTYPECONST: {
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        ArcheryContract.TargetTypeConst.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case ROUNDCONST: {
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        ArcheryContract.RoundConst.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case ROUNDMAKEUP: {
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        ArcheryContract.RoundMakeup.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: "+ uri);
 

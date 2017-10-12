@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_newround) {
             // Start Scoring a new round
+            startActivity(new Intent(this, RoundPickActivity.class));
 
         } else if (id == R.id.nav_arrowcount) {
             // Call up the simple arrow counter
