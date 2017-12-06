@@ -26,16 +26,16 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     wearApp project(':wear')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    // Gradle dependency on Stetho - allows inspection of device data for debuging TODO: Remove it on conditional release build version
     compile 'com.google.android.gms:play-services-wearable:11.0.4'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.android.gms:play-services-ads:11.0.4'
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
-    // Gradle dependency on Stetho - allows inspection of device data for debuging TODO: Remove it on conditional release build version
     compile 'com.facebook.stetho:stetho:1.5.0'
+    testCompile 'junit:junit:4.12'
 }
 repositories {
     mavenCentral()

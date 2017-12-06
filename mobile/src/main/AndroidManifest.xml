@@ -27,7 +27,8 @@
             android:exported="false"
             android:syncable="true" />
 
-        <activity android:name=".RoundPickActivity"></activity>
+        <activity android:name=".RoundPickActivity" />
+        <activity android:name=".RoundActivity"></activity>
     </application>
 
 </manifest>
