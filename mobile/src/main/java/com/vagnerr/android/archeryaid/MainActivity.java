@@ -108,6 +108,15 @@ public class MainActivity extends AppCompatActivity
         new InitialiseDBConstants().execute();
         Log.v(LOG_TAG, "DB DONE");
 
+
+
+        // DEBUG: jump straight to RoundActivity to save all the clicking
+        // Rule2 = Fita Outdoor, Round:2001  F.I.T.A.
+        Intent intent = new Intent(getApplicationContext(), RoundActivity.class);
+        intent.putExtra(RoundActivity.RULE_ID, (long)2);
+        intent.putExtra(RoundActivity.ROUND_ID, (long)2001);
+        startActivity(intent);
+
     }
 
     private void updateArrowCount(ContentResolver cp, int textView, int days) {

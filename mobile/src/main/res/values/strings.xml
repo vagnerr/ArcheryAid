@@ -13,4 +13,6 @@
     <string name="rules">Rules</string>
     <string name="round">Round</string>
     <string name="start_round">Start Round</string>
+    <string name="hits">Hits</string>
+    <string name="golds">Golds</string>
 </resources>
