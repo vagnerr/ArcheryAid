@@ -44,6 +44,22 @@ public class RoundActivity extends AppCompatActivity {
         LinearLayout ends = (LinearLayout) findViewById(R.id.roundDistances);
         //POC...
 
+        // TODO:
+        //  * Design a "distance" layout.xml ( heading + [ ends ] + distance totals )
+        //  * for distance in ( distances )
+        //    * inflate distance
+        //    * add N ends to that
+        //    * add inflated to page
+        // SO we have a two stage process build up the ends onto the distance onto the page
+        //
+        // For POC work with fixed round data. ... then pull the Intent info and work with that.
+        // Note: Eventually we don't want to build the page from the static information on the
+        //       the round type selected. We want to build it based on the actual rounds
+        //       recorded score data ( need to attach the ends to the underlying cursors )
+        //         * Build the static then manually "fill out" the values ?
+        //         * On initial creation of the round generate "zeros" in the DB for the new round then...
+        //           * attach the cursors as we build out the GUI?
+        //       Going to need some testing on this especially from a performance perspective.
 
         LayoutInflater inflater = getLayoutInflater();
         Button button = new Button(this);
