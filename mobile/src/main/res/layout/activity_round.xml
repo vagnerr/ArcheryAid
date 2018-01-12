@@ -50,46 +50,37 @@
                 android:inputType="textPersonName"
                 android:text="roundScore"
                 tools:text="128" />
+
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/roundDistances"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/side_nav_bar"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
+            <LinearLayout
+                android:id="@+id/roundDistances"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/side_nav_bar"
+                android:orientation="vertical">
+
+                <!-- Individual Round Distances are included here -->
+                <!-- Commented back in to view in designer
             <include
-                android:id="@+id/common1"
-                layout="@layout/content_round_end"
+                android:id="@+id/distance1"
+                layout="@layout/content_round_distance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
             <include
-                android:id="@+id/common2"
-                layout="@layout/content_round_end"
+                android:id="@+id/distance2"
+                layout="@layout/content_round_distance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/common3"
-                layout="@layout/content_round_end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/common4"
-                layout="@layout/content_round_end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/common5"
-                layout="@layout/content_round_end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                                                            -->
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"

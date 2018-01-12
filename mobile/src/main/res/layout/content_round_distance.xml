@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/l_distance_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/target_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="Target - 50m"
+            tools:text="TARGET - 50m" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="E.T."
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="R.T."
+            android:textAlignment="textEnd" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/distance_ends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- individual content_round_ends.xmls are inserted here -->
+        <!-- Commented back in to view in designer
+        <include
+            android:id="@+id/common1"
+            layout="@layout/content_round_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/common2"
+            layout="@layout/content_round_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/common3"
+            layout="@layout/content_round_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+                                                        -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/l_distance_foot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Total"
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:id="@+id/distance_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="111"
+            android:textAlignment="textEnd" />
+
+        <TextView
+            android:id="@+id/distance_rt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="111"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+</LinearLayout>
