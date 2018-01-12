@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
+import java.util.Random;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -73,6 +76,9 @@ public class RoundActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         int my_ids=1;
 
+        Random rand = new Random();
+
+
         for ( int distance = 0; distance < TEST_DATA.length; distance++){
             View distanceview = inflater.inflate(R.layout.content_round_distance, distances, false);
             distanceview.setId(my_ids++);
@@ -82,6 +88,11 @@ public class RoundActivity extends AppCompatActivity {
             for ( int end = 0; end < TEST_DATA[distance][1] ; end++){
                 View endview = inflater.inflate(R.layout.content_round_end, distances, false);
                 endview.setId(my_ids++);
+
+                // Set some random scores
+                TextView arrow = endview.findViewById(R.id.endArrow1);
+                arrow.setText(String.valueOf(rand.nextInt(10)));
+                //arrow.setText("Y");
                 ends.addView(endview,-1,WRAP_CONTENT);
             }
         }
