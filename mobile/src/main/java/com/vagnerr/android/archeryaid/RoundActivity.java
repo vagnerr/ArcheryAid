@@ -78,10 +78,16 @@ public class RoundActivity extends AppCompatActivity {
 
         Random rand = new Random();
 
+        int targetDFormat = R.string.format_target_distance;
+
 
         for ( int distance = 0; distance < TEST_DATA.length; distance++){
             View distanceview = inflater.inflate(R.layout.content_round_distance, distances, false);
             distanceview.setId(my_ids++);
+
+            TextView targetDistance = distanceview.findViewById(R.id.target_distance);
+            targetDistance.setText(String.format(this.getString(targetDFormat),TEST_DATA[distance][0],"m" ));
+
             distances.addView(distanceview, -1, WRAP_CONTENT);
 
             LinearLayout ends = distanceview.findViewById(R.id.distance_ends);

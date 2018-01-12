@@ -15,4 +15,7 @@
     <string name="start_round">Start Round</string>
     <string name="hits">Hits</string>
     <string name="golds">Golds</string>
+
+    <string name="format_target_distance">Target - <xliff:g id="distance">%1$d</xliff:g><xliff:g id="units">%2$s</xliff:g></string>
+
 </resources>
