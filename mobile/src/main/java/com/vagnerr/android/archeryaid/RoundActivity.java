@@ -1,16 +1,20 @@
 package com.vagnerr.android.archeryaid;
 
+import android.app.Activity;
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.vagnerr.android.archeryaid.data.EndData;
+import com.vagnerr.android.archeryaid.databinding.ActivityRoundBinding;
+
 
 import java.util.Random;
 
@@ -38,6 +42,14 @@ public class RoundActivity extends AppCompatActivity {
         //TODO: if rule or round are -1 we need to abort. *should* never happen but you never know
 
         setContentView(R.layout.activity_round);
+
+        // Databind data.End object to the view.
+        //ContentRoundEndBinding =
+        ActivityRoundBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_round);
+        //ContentRoundEndBinding bind = DataBindingUtil.setContentView(this, R.layout.content_round_end);
+        EndData enddata = new EndData(1, "X", "10", "", "", "", "");
+        bind.setDataend(enddata);
+
 
         mAdView = (AdView) findViewById(R.id.adViewRound);  // must come after setContentView or you get null
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -94,6 +106,7 @@ public class RoundActivity extends AppCompatActivity {
             for ( int end = 0; end < TEST_DATA[distance][1] ; end++){
                 View endview = inflater.inflate(R.layout.content_round_end, distances, false);
                 endview.setId(my_ids++);
+
 
                 // Set some random scores
                 TextView arrow = endview.findViewById(R.id.endArrow1);
